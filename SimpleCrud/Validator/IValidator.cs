@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 // ValidateResult Validate<T>(T param, string key); - interface szablonowy
 namespace SimpleCrud.Validator
 {
-    public interface IValidator<T>
+    public interface IValidator<TModel>
     {
-
-        ValidateResult Validate(T param, string key);
+        //zwravamy liste validation result
+        IEnumerable<ValidateResult> Validate(TModel param);
     }
 
     public class ValidateResult

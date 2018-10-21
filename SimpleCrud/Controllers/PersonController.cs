@@ -18,7 +18,7 @@ namespace SimpleCrud.Controllers
     {
         //4.
         private readonly IPersonsRepository _personsRepository = new PersonsRepository();
-        private readonly IValidator<DateTime> _validator = new DateOfBirthValidator();
+        private readonly IValidator<AddUserModel> _addUserModelValidator = new AddUserModelValidator();
 
 
         public ActionResult Index()
@@ -49,28 +49,27 @@ namespace SimpleCrud.Controllers
             return View(userModel);
         }
         [HttpPost]
-        public ActionResult Add(AddUserModel user)
+        public ActionResult Add(AddUserModel model)
         {
-            //10. Dodajemy akcje do zapisania usera w repository
+            //10a. Dodajemy akcje do zapisania usera w repository
             // Najpierw robimy walidację, poźniej sprawdzamy modalstate, walidacja jest utworzona w folderze validate
-            var validationResult = _validator.Validate(user.DateOfBirth, nameof(user.DateOfBirth));
-
-            if(validationResult != null)
+            var validationResult = _addUserModelValidator.Validate(model);
+            foreach(var res in validationResult)
             {
                 ModelState.AddModelError(
-                    validationResult.Key,
-                    validationResult.Message
+                    res.Key,
+                    res.Message
                     );
             }
 
             if (ModelState.IsValid)
             {
-                _personsRepository.Add(user);
+                _personsRepository.Add(model);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(user);
+                return View(model);
             }
             
         }
