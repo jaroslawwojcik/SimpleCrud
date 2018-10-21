@@ -161,7 +161,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +174,7 @@
     <Compile Include="Repositories\IPersonsRepository.cs" />
     <Compile Include="Repositories\PersonsRepository.cs" />
     <Compile Include="Validator\AddUserModelValidator.cs" />
+    <Compile Include="Validator\EditUserModelValidator.cs" />
     <Compile Include="Validator\IValidator.cs" />
   </ItemGroup>
   <ItemGroup>
