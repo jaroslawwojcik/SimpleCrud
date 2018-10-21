@@ -57,7 +57,7 @@ namespace SimpleCrud.Controllers
         {
             //10a. Dodajemy akcje do zapisania usera w repository
             // Najpierw robimy walidację, poźniej sprawdzamy modalstate, walidacja jest utworzona w folderze validate
-            Validate(_addUserModelValidator, model);
+            Validate(model);
            
 
             if (ModelState.IsValid)
