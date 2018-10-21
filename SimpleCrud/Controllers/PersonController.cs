@@ -18,12 +18,11 @@ namespace SimpleCrud.Controllers
     {
         //4.
         private readonly IPersonsRepository _personsRepository;
-        private readonly IValidator<AddUserModel> _addUserModelValidator;
+        
 
-        public PersonController(IPersonsRepository personsRepository, IValidator<AddUserModel> addUserModelValidator)
+        public PersonController(IPersonsRepository personsRepository)
         {
             _personsRepository = personsRepository;
-            _addUserModelValidator = addUserModelValidator;
         }
 
         public ActionResult Index()

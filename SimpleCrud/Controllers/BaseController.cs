@@ -1,4 +1,5 @@
-﻿using SimpleCrud.Validator;
+﻿using Ninject;
+using SimpleCrud.Validator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,13 @@ namespace SimpleCrud.Controllers
 {//21. Dalej do validacji tworzymy klasę abstrakcyjną, po której dziedziczyć będą ...
     public abstract class BaseController : Controller
     {
-        public void Validate<TModel>(IValidator<TModel> validator, TModel model)
+        [Inject]
+        public IKernel Kernel { get; set; }
+
+        public void Validate<TModel>(TModel model)
         {
+            var validator = Kernel.Get<IValidator<TModel>>();
+
             var result = validator.Validate(model);
 
             foreach (var res in result)
