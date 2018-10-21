@@ -1,0 +1,24 @@
+﻿@model SimpleCrud.Models.AddUserModel
+@* 11. dodajemy using który zamyka klamry, dajemy form z labelami   *@
+@* 17. *@
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="FirstName">Imie</label>
+        @Html.EditorFor(n => n.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.FirstName)
+    </div>
+
+    <div class="form-group">
+        <label for="LastName">Nazwisko</label>
+        @Html.EditorFor(n => n.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.LastName)
+    </div>
+    <div class="form-group">
+        <label for="DateOfBirth">Data urodzenia</label>
+        @Html.EditorFor(n => n.DateOfBirth, new { @class = "form-control" })
+    </div>
+    
+    @Html.ValidationSummary()
+    <input type="submit" class="btn btn-primary" value="Zapisz" />
+}

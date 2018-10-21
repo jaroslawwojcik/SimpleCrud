@@ -14,9 +14,12 @@ namespace SimpleCrud
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                //nazwa routa
                 name: "Default",
+                //ustawienie standardu dla routa
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                // domyślny kontroler w tym przypadku Home/Index/
+                defaults: new { controller = "Person", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

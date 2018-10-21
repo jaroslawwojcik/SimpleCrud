@@ -1,0 +1,26 @@
+﻿@*8. dodajemy typ modelu*@
+@model IList<SimpleCrud.Models.UserModel>
+@*12. dodajemy button z przekierowaniem na add *@
+<a href="@Url.Action("Add")" class="btn btn-primary">Dodaj</a>
+<a href="@Url.Action("Edit")" class="btn btn-primary">Edytuj</a>
+@*9 Dodajemy tabele i bierzemy dane z modelu do td *@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Imię i nazwisko</th>
+            <th>Wiek</th>
+            <th>Czy aktywny? </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Edit", new { user.Id })">@user.FullName</a></td>
+                <td>@user.Age</td>
+                <td>@user.IsActiveAsString</td>
+                <td><a href="@Url.Action("Delete", new { user.Id })">X</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

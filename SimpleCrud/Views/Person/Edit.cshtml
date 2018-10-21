@@ -1,0 +1,24 @@
+﻿@model SimpleCrud.Models.EditUserModel
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(n => n.Id)
+
+<div class="form-group">
+    <label for="FirstName">Imie</label>
+    @Html.EditorFor(n => n.FirstName, new { @class = "Form-control" })
+    @Html.ValidationMessageFor(n => n.FirstName)
+</div>
+<div class="form-group">
+    <label for="LastName">Nazwisko</label>
+    @Html.EditorFor(n => n.LastName, new { @class = "Form-control" })
+    @Html.ValidationMessageFor(n => n.LastName)
+</div>
+    
+    <div class="form-group">
+        <label for="LastName">Czy Aktywny?</label>
+        @Html.EditorFor(n => n.IsActive, new { @class = "Form-control" })
+    </div>
+    @Html.ValidationSummary()
+    <input type="submit" class="btn btn-primary" value="Zapisz" />
+}
