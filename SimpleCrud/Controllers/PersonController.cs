@@ -14,12 +14,17 @@ namespace SimpleCrud.Controllers
     //3. Edit dostaje id przez co url bedzie Person/Index/id
     // >Entities/User
     //
-    public class PersonController : Controller
+    public class PersonController : BaseController
     {
         //4.
-        private readonly IPersonsRepository _personsRepository = new PersonsRepository();
-        private readonly IValidator<AddUserModel> _addUserModelValidator = new AddUserModelValidator();
+        private readonly IPersonsRepository _personsRepository;
+        private readonly IValidator<AddUserModel> _addUserModelValidator;
 
+        public PersonController(IPersonsRepository personsRepository, IValidator<AddUserModel> addUserModelValidator)
+        {
+            _personsRepository = personsRepository;
+            _addUserModelValidator = addUserModelValidator;
+        }
 
         public ActionResult Index()
         {
@@ -53,14 +58,8 @@ namespace SimpleCrud.Controllers
         {
             //10a. Dodajemy akcje do zapisania usera w repository
             // Najpierw robimy walidację, poźniej sprawdzamy modalstate, walidacja jest utworzona w folderze validate
-            var validationResult = _addUserModelValidator.Validate(model);
-            foreach(var res in validationResult)
-            {
-                ModelState.AddModelError(
-                    res.Key,
-                    res.Message
-                    );
-            }
+            Validate(_addUserModelValidator, model);
+           
 
             if (ModelState.IsValid)
             {
