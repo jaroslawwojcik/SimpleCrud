@@ -1,0 +1,13 @@
+﻿@model SimpleCrud.Models.AddRoleModel
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="RoleName">Nazwa Roli</label>
+        @Html.EditorFor(r => r.RoleName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.RoleName)
+    </div>
+
+    @Html.ValidationSummary()
+    <input type="submit" class="btn btn-primary" value="Zapisz" />
+}

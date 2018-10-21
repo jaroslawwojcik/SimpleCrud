@@ -18,7 +18,12 @@
         <label for="DateOfBirth">Data urodzenia</label>
         @Html.EditorFor(n => n.DateOfBirth, new { @class = "form-control" })
     </div>
-    
+    <div class="form-group">
+        <label for="Role">Rola</label>
+        @Html.DropDownListFor(n => n.RoleId, new SelectList(Model.RoleModelsList, "Id", "RoleName"), "" , new { @class = "Form-control" })
+    </div>
+
+
     @Html.ValidationSummary()
     <input type="submit" class="btn btn-primary" value="Zapisz" />
 }

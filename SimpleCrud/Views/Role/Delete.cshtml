@@ -1,0 +1,10 @@
+﻿@model long
+
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("id", @Model)
+
+    <text>Czy napewno chcesz usunąć daną rolę?</text>
+    <input type="submit" value="Tak" class="btn btn-primary" />
+}

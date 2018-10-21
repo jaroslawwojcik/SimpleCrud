@@ -9,6 +9,7 @@ namespace SimpleCrud.Repositories
 {
     public class PersonsRepository : IPersonsRepository
     {
+        private readonly static IRoleRepository _roleRepository = new RoleRepository();
         private readonly static IList<User> _users = new List<User>()
         {
 
@@ -18,7 +19,12 @@ namespace SimpleCrud.Repositories
                 Id = 1,
                 FirstName = "Jarek",
                 LastName = "Wójcik",
-                DateOfBirth = new DateTime(1990,12,17)
+                DateOfBirth = new DateTime(1990,12,17),
+                Role = new Role
+                {
+                    Id = 1,
+                    RoleName = "Administrator"
+                }
             },
 
             new User()
@@ -26,7 +32,12 @@ namespace SimpleCrud.Repositories
                 Id = 2,
                 FirstName = "Maciej",
                 LastName = "Makota",
-                DateOfBirth = new DateTime(1994,5,12)
+                DateOfBirth = new DateTime(1994,5,12),
+                Role = new Role
+                {
+                    Id = 1,
+                    RoleName = "Administrator"
+                }
             }
         };
 
@@ -39,6 +50,7 @@ namespace SimpleCrud.Repositories
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 DateOfBirth = userModel.DateOfBirth,
+                Role = _roleRepository.GetRole(userModel.RoleId),
 
                 IsActive = true
             };
@@ -54,6 +66,7 @@ namespace SimpleCrud.Repositories
 
                 FullName = string.Format("{0} {1}",u.FirstName, u.LastName),
                 Age = DateTime.Now.Year - u.DateOfBirth.Year,
+                Role = u.Role,
                 IsActiveAsString = u.IsActive ? "TAK" : "NIE"
                 
             })
@@ -67,7 +80,9 @@ namespace SimpleCrud.Repositories
                 Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                IsActive = u.IsActive
+                Role = u.Role,
+                IsActive = u.IsActive,
+                
             })
             .SingleOrDefault(u => u.Id == id);
         }
@@ -75,10 +90,10 @@ namespace SimpleCrud.Repositories
         public void Update(EditUserModel model)
         {
             var originalUser = _users.Single(x => x.Id == model.Id);
-
+            
             originalUser.FirstName = model.FirstName;
             originalUser.LastName = model.LastName;
-
+            originalUser.Role = _roleRepository.GetRole(model.RoleId);
             originalUser.IsActive = model.IsActive;
         }
 

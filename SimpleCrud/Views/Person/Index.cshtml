@@ -10,17 +10,20 @@
             <th>Imię i nazwisko</th>
             <th>Wiek</th>
             <th>Czy aktywny? </th>
+            <th>Rola </th>
+            <th>Usuń </th>
         </tr>
     </thead>
     <tbody>
         @foreach(var user in Model)
         {
-            <tr>
-                <td><a href="@Url.Action("Edit", new { user.Id })">@user.FullName</a></td>
-                <td>@user.Age</td>
-                <td>@user.IsActiveAsString</td>
-                <td><a href="@Url.Action("Delete", new { user.Id })">X</a></td>
-            </tr>
+        <tr>
+            <td><a href="@Url.Action("Edit", new { user.Id })">@user.FullName</a></td>
+            <td>@user.Age</td>
+            <td>@user.IsActiveAsString</td>
+            <td>@user.Role.RoleName</td>
+            <td><a href="@Url.Action("Delete", new { user.Id })">X</a></td>
+        </tr>
         }
     </tbody>
 </table>

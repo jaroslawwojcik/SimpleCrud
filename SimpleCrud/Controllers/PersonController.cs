@@ -18,11 +18,12 @@ namespace SimpleCrud.Controllers
     {
         //4.
         private readonly IPersonsRepository _personsRepository;
-        
+        private readonly IRoleRepository _roleRepository;        
 
-        public PersonController(IPersonsRepository personsRepository)
+        public PersonController(IPersonsRepository personsRepository, IRoleRepository roleRepository)
         {
             _personsRepository = personsRepository;
+            _roleRepository = roleRepository;
         }
 
         public ActionResult Index()
@@ -41,6 +42,7 @@ namespace SimpleCrud.Controllers
         [HttpPost]
         public ActionResult Edit(EditUserModel model)
         {
+            
             Validate(model);
 
             if (ModelState.IsValid)

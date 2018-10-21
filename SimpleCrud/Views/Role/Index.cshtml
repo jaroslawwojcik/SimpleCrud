@@ -1,0 +1,22 @@
+﻿@model IList<SimpleCrud.Models.RoleModel>
+
+<a href="@Url.Action("Add")" class="btn btn-primary">Dodaj</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa roli</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.RoleName</td>
+                <td><a href="@Url.Action("Delete", new { role.Id })">X</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
