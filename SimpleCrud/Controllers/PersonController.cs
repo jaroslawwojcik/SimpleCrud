@@ -1,6 +1,7 @@
 ﻿using SimpleCrud.Entities;
 using SimpleCrud.Models;
 using SimpleCrud.Repositories;
+using SimpleCrud.Validator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace SimpleCrud.Controllers
     {
         //4.
         private readonly IPersonsRepository _personsRepository = new PersonsRepository();
+        private readonly IValidator<DateTime> _validator = new DateOfBirthValidator();
 
 
         public ActionResult Index()
@@ -50,15 +52,17 @@ namespace SimpleCrud.Controllers
         public ActionResult Add(AddUserModel user)
         {
             //10. Dodajemy akcje do zapisania usera w repository
-            // Najpierw robimy walidację, poźniej sprawdzamy modalstate
-            var dateOfBirth = user.DateOfBirth;
-            var now = DateTime.UtcNow;
-            var yearsDifference = now.Year - dateOfBirth.Year;
+            // Najpierw robimy walidację, poźniej sprawdzamy modalstate, walidacja jest utworzona w folderze validate
+            var validationResult = _validator.Validate(user.DateOfBirth, nameof(user.DateOfBirth));
 
-            if(yearsDifference <= 10)
+            if(validationResult != null)
             {
-                ModelState.AddModelError(nameof(user.DateOfBirth), "Użytkownik musi mieć co najmniej 10 lat");
+                ModelState.AddModelError(
+                    validationResult.Key,
+                    validationResult.Message
+                    );
             }
+
             if (ModelState.IsValid)
             {
                 _personsRepository.Add(user);
